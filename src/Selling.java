@@ -40,6 +40,7 @@ public class Selling {
 
         while (isInBakery && dollarsCollected < 50) {
             String command = scanner.nextLine();
+            bakery[rowS][collS] = "-";
             switch (command) {
                 case "up":
                     if (rowS - 1 >= 0) {
@@ -78,12 +79,15 @@ public class Selling {
         }
 
         if (isInBakery) {
+            bakery[rowS][collS] = "S";
+        }
+        if (!isInBakery) {
             System.out.println("Bad news, you are out of the bakery.");
         } else {
             System.out.println("Good news! You succeeded in collecting enough money!");
         }
 
-        System.out.printf("Money: %d", dollarsCollected);
+        System.out.printf("Money: %d%n", dollarsCollected);
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -91,6 +95,7 @@ public class Selling {
             }
             System.out.println();
         }
+
     }
 
 
@@ -110,9 +115,11 @@ public class Selling {
             dollarsCollected += Integer.parseInt(bakery[rowS][collS]);
         } else if (bakery[rowS][collS].equals("O")) {
             if (rowS == rowFirstPillar) {
+                bakery[rowS][collS] = "-";
                 rowS = rowSecondPillar;
                 collS = collSecondPillar;
             } else if (rowS == rowSecondPillar) {
+                bakery[rowS][collS] = "-";
                 rowS = rowFirstPillar;
                 collS = collFirstPillar;
             }
