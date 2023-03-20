@@ -7,7 +7,7 @@ import java.util.Comparator;
 public class Bakery {
 
     private String name;
-    private  int capacity;
+    private int capacity;
     private Collection<Employee> employees;
 
     public Bakery(String name, int capacity) {
@@ -16,13 +16,13 @@ public class Bakery {
         this.employees = new ArrayList<>();
     }
 
-   public void add(Employee employee) {
-    if (employees.size() < capacity) {
-        employees.add(employee);
-    }
+    public void add(Employee employee) {
+        if (employees.size() < capacity) {
+            employees.add(employee);
+        }
     }
 
-    public boolean remove (String name) {
+    public boolean remove(String name) {
         for (Employee employee : employees) {
             if (employee.name.equals(this.name)) {
                 employees.remove(employee);
@@ -32,7 +32,7 @@ public class Bakery {
         return false;
     }
 
-    public String getOldestEmployee () {
+    public String getOldestEmployee() {
         if (employees.size() > 0) {
             return String.valueOf(this.employees.stream()
                     .max(Comparator.comparing(Employee::getAge)).get());
@@ -41,14 +41,17 @@ public class Bakery {
         }
     }
 
-    public String getEmployee (String name) {
-        if (employees.contains(name)) {
-            return String.format(employees.toString());
+    public String getEmployee(String name) {
+        for (Employee employee : employees) {
+            if (employee.getName().equals(name)) {
+                return String.valueOf(employee);
+            }
         }
-         return String.valueOf(employees.contains(name));
+        return null;
     }
 
-    public int getCount () {
+
+    public int getCount() {
         return employees.size();
     }
 
@@ -56,6 +59,13 @@ public class Bakery {
 
         StringBuilder sb = new StringBuilder();
 
-        return null;
+        sb.append(String.format("Employees working at Bakery %s:",this.name))
+                .append(System.lineSeparator());
+
+        for (Employee employee : employees){
+            sb.append(String.format(String.valueOf(employee))).append(System.lineSeparator());
+        }
+
+        return sb.toString().trim();
     }
 }
